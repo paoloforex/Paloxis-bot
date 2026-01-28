@@ -2,16 +2,17 @@ name: Lavoro Automatico Paloxis
 
 on:
   schedule:
-    # '0 * * * *' significa: scatta ogni ora esatta (es. 10:00, 11:00...)
-    # Rimanendo ampiamente nei limiti gratuiti di GitHub
-    - cron: '0 * * * *' 
-  workflow_dispatch: # Questo ti permette di farlo partire a mano per prova
+    - cron: '0 * * * *' # Lavora gratis ogni ora
+  workflow_dispatch:      
+
+permissions:
+  contents: write # IMPORTANTE: Permette al bot di aggiornare il sito da solo
 
 jobs:
   run-bot:
     runs-on: ubuntu-latest
     steps:
-      - name: Prendi il codice di Paloxis
+      - name: Prendi il codice
         uses: actions/checkout@v3
 
       - name: Accendi Python
@@ -19,7 +20,18 @@ jobs:
         with:
           python-version: '3.9'
 
+      - name: Installa componenti
+        run: pip install requests
+
       - name: Fai lavorare il Bot
         env:
           AMAZON_TAG: ${{ secrets.AMAZON_TAG }}
         run: python paloxis_bot.py
+
+      - name: Salva e Pubblica il Sito
+        run: |
+          git config --global user.name "PaloxisBot"
+          git config --global user.email "bot@paloxis.it"
+          git add index.html
+          git commit -m "Aggiornamento automatico profitti" || exit 0
+          git push
