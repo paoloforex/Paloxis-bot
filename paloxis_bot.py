@@ -1,18 +1,24 @@
-# --- DATABASE PRODOTTI VINCENTI (LINK REALI) ---
+# --- DATABASE PRODOTTI TESTATI E FUNZIONANTI ---
 prodotti_top = [
     {
-        "nome": "🎥 Proiettore Smart 4K Wi-Fi",
-        "url": "https://www.amazon.it/dp/B0D9BWBZ6X",
-        "marketing": "Il più virale del 2026! Cinema in casa con un click. 🍿"
+        "nome": "🎥 Proiettore Portatile 4K",
+        "url": "https://www.amazon.it/dp/B0CKR9V8M2",
+        "marketing": "Il gadget più virale del momento! Cinema ovunque. 🍿"
     },
     {
         "nome": "🎧 Cuffie Bluetooth Noise Cancelling",
         "url": "https://www.amazon.it/dp/B09G96TFF7",
-        "marketing": "Qualità audio superiore e batteria infinita. ⭐"
+        "marketing": "Suono perfetto e batteria che dura giorni. ⭐"
     },
     {
-        "nome": "🔋 PowerBank MagSafe 10.000mAh",
+        "nome": "🔋 PowerBank MagSafe Ultra",
         "url": "https://www.amazon.it/dp/B099279S8R",
-        "marketing": "Ricarica il tuo telefono senza cavi, ovunque tu sia. ⚡"
+        "marketing": "Ricarica il tuo iPhone senza cavi. Indispensabile. ⚡"
     }
 ]
+
+def crea_link_diretto(url_base):
+    # Rimuove eventuali spazi bianchi che rompono il link
+    url_pulito = url_base.strip()
+    tag_pulito = AMAZON_TAG.strip()
+    return f"{url_pulito}?tag={tag_pulito}"
