@@ -1,0 +1,25 @@
+name: Lavoro Automatico Paloxis
+
+on:
+  schedule:
+    # '0 * * * *' significa: scatta ogni ora esatta (es. 10:00, 11:00...)
+    # Rimanendo ampiamente nei limiti gratuiti di GitHub
+    - cron: '0 * * * *' 
+  workflow_dispatch: # Questo ti permette di farlo partire a mano per prova
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Prendi il codice di Paloxis
+        uses: actions/checkout@v3
+
+      - name: Accendi Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Fai lavorare il Bot
+        env:
+          AMAZON_TAG: ${{ secrets.AMAZON_TAG }}
+        run: python paloxis_bot.py
